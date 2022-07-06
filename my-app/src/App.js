@@ -1,23 +1,45 @@
-import logo from './logo.svg';
+
 import './App.css';
+import JobsList from './Components/JobsList';
+import react,{useState} from 'react'
 
 function App() {
+  //creating the state for the API data
+  const[jobsData,updateJobsData] = useState([])
+  function getAPI(){
+    
+    //built in method to fetch URL and display data 
+    fetch('https://remotive.com/api/remote-jobs?limit=5').then((response) =>{
+    console.log(response)  
+    return response.json()
+    }).then((data) =>{
+     console.log(data.jobs)
+     const jobData = data.jobs.map(jobs =>{
+      return{
+      key:Math.floor((Math.random()*100)+1),
+      jobName:jobs.category,
+      id:jobs.id,
+      jobSeason:jobs.job_type,
+      salary:jobs.salary
+  
+  
+    }
+     })
+     console.log(jobData)
+      updateJobsData(jobData)
+     
+        
+      //creating state to store the data into a state object so we can rerender the interface 
+    })
+  }
+
+ 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <section className = "section">
+      <button className='button' onClick={getAPI}></button>
+      <JobsList jobs1 ={jobsData}></JobsList>
+     </section>
     </div>
   );
 }
