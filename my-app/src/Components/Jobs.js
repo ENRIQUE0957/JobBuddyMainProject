@@ -1,4 +1,5 @@
 const Jobs = (props)=>{
+    console.log('last component')
     return(
         <li>
             <h2>{props.jobname}</h2>

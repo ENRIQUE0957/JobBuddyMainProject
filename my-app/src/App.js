@@ -2,8 +2,10 @@
 import './App.css';
 import JobsList from './Components/JobsList';
 import react,{useState} from 'react'
+import Header from './Components/UI/Header';
 
 function App() {
+  console.log("root")
   //creating the state for the API data
   const[jobsData,updateJobsData] = useState([])
   function getAPI(){
@@ -36,7 +38,10 @@ function App() {
  
   return (
     <div className="App">
+      <Header></Header>
+     
      <section className = "section">
+      
       <button className='button' onClick={getAPI}></button>
       <JobsList jobs1 ={jobsData}></JobsList>
      </section>
